@@ -6,6 +6,7 @@ import Marker  from './components/Marke';
 import Testimonials from './components/Testimonials';
 import Brid from './components/Brid';
 import PopPup from './components/PopPup';
+import Team from './components/Team';
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
       <Testimonials/>
       <section/>
       <PopPup/>
+      <section/>
+      <Team/>
       <section/>
       <Footer/>
     </div>
