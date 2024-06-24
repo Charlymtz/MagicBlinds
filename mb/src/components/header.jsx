@@ -1,7 +1,3 @@
-
-import '../styles/Header.css';
-
-
 function Header(){
     return(
       <header class="bg-white">
@@ -21,7 +17,7 @@ function Header(){
           </li>
 
           <li>
-            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Contact </a>
+            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Careers </a>
           </li>
 
           <li>
@@ -29,11 +25,15 @@ function Header(){
           </li>
 
           <li>
-            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Products </a>
+            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Services </a>
           </li>
 
           <li>
             <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Projects </a>
+          </li>
+
+          <li>
+            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Blog </a>
           </li>
         </ul>
       </nav>
@@ -72,14 +72,7 @@ function Header(){
         </button>
       </div>
     </div>
-    {/* Banner con imagen de fondo */}
   </div>
-    <div className="banner">
-        <div className="mx-auto max-w-screen-xl h-80 flex items-center justify-center">
-          {/* Contenido opcional en el banner */}
-          <h1 className="text-black text-4xl font-bold">MAGIC BLINDS</h1>
-        </div>
-    </div>
 </header>
     )
 }
