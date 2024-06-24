@@ -35,7 +35,6 @@ function Brid(){
                     <a
                       href="#"
                       className="block rounded-lg border border-teal-600 bg-white px-6 py-2 text-base font-semibold text-teal-600 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gray-100"
-                            href="#"
                     >
                       Learn More
                     </a>
