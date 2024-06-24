@@ -5,7 +5,7 @@ function Brid(){
               className="relative bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat"
             >
               <div
-                className="absolute inset-0 bg-white/75 sm:bg-transparent sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"
+                className="absolute inset-0 b g-white/75 sm:bg-transparent sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"
               ></div>
 
               <div
@@ -25,7 +25,7 @@ function Brid(){
 
                   <div className="mt-8 flex flex-wrap gap-4 text-center">
                     <a
-                      href="#"
+                      href="/get"
                       className="block rounded-lg border border-transparent bg-gradient-to-r from-teal-500 to-cyan-500 px-6 py-2 text-base font-semibold text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gradient-to-r hover:from-teal-600 hover:to-cyan-600"
 
                     >
@@ -33,9 +33,8 @@ function Brid(){
                     </a>
 
                     <a
-                      href="#"
+                      href="/learn"
                       className="block rounded-lg border border-teal-600 bg-white px-6 py-2 text-base font-semibold text-teal-600 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gray-100"
-                            href="#"
                     >
                       Learn More
                     </a>
