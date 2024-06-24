@@ -13,9 +13,9 @@ function App() {
     <div>
       <Header />
       <section/>
-      <Marker/>
-      <section/>
       <Brid/>
+      <section/>
+      <Marker/>
       <section/>
       <Productos/>
       <section/>
