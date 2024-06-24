@@ -4,17 +4,25 @@ function Header() {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
 
-  const handleLoginClick = () => {
+  const handleLoginClick = (e) => {
+    e.preventDefault();
     setShowLoginPopup(true);
   };
 
-  const handleRegisterClick = () => {
+  const handleRegisterClick = (e) => {
+    e.preventDefault();
     setShowRegisterPopup(true);
   };
 
   const closePopup = () => {
     setShowLoginPopup(false);
     setShowRegisterPopup(false);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // Add form submission logic here
+    closePopup();
   };
 
   return (
@@ -97,63 +105,58 @@ function Header() {
       </header>
 
       {showLoginPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
-            <button
-              onClick={closePopup}
-              className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
-            >
-              X
-            </button>
-            <h2 className="text-2xl mb-4">Login</h2>
-            <form>
-              <label className="block mb-2">
-                Email:
-                <input type="email" className="border p-2 w-full" />
-              </label>
-              <label className="block mb-4">
-                Password:
-                <input type="password" className="border p-2 w-full" />
-              </label>
-              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
+        <Popup title="Login" onClose={closePopup} onSubmit={handleFormSubmit}>
+          <label className="block mb-2">
+            Email:
+            <input type="email" className="border p-2 w-full" required />
+          </label>
+          <label className="block mb-4">
+            Password:
+            <input type="password" className="border p-2 w-full" required />
+          </label>
+        </Popup>
       )}
 
       {showRegisterPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
-            <button
-              onClick={closePopup}
-              className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
-            >
-              X
-            </button>
-            <h2 className="text-2xl mb-4">Register</h2>
-            <form>
-              <label className="block mb-2">
-                Email:
-                <input type="email" className="border p-2 w-full" />
-              </label>
-              <label className="block mb-2">
-                Password:
-                <input type="password" className="border p-2 w-full" />
-              </label>
-              <label className="block mb-4">
-                Confirm Password:
-                <input type="password" className="border p-2 w-full" />
-              </label>
-              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
+        <Popup title="Register" onClose={closePopup} onSubmit={handleFormSubmit}>
+          <label className="block mb-2">
+            Email:
+            <input type="email" className="border p-2 w-full" required />
+          </label>
+          <label className="block mb-2">
+            Password:
+            <input type="password" className="border p-2 w-full" required />
+          </label>
+          <label className="block mb-4">
+            Confirm Password:
+            <input type="password" className="border p-2 w-full" required />
+          </label>
+        </Popup>
       )}
     </>
+  );
+}
+
+function Popup({ title, onClose, onSubmit, children }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
+        >
+          <span className="sr-only">Close</span>
+          X
+        </button>
+        <h2 id="dialog-title" className="text-2xl mb-4">{title}</h2>
+        <form onSubmit={onSubmit}>
+          {children}
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
 
