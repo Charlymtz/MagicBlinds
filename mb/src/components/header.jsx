@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 function Header() {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
+  const loginPopupRef = useRef(null);
+  const registerPopupRef = useRef(null);
 
   const handleLoginClick = () => {
     setShowLoginPopup(true);
@@ -16,6 +18,26 @@ function Header() {
     setShowLoginPopup(false);
     setShowRegisterPopup(false);
   };
+
+  const handleClickOutside = (event) => {
+    if (loginPopupRef.current && !loginPopupRef.current.contains(event.target)) {
+      setShowLoginPopup(false);
+    }
+    if (registerPopupRef.current && !registerPopupRef.current.contains(event.target)) {
+      setShowRegisterPopup(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showLoginPopup || showRegisterPopup) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showLoginPopup, showRegisterPopup]);
 
   return (
     <>
@@ -98,7 +120,7 @@ function Header() {
 
       {showLoginPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
+          <div ref={loginPopupRef} className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
             <button
               onClick={closePopup}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
@@ -125,7 +147,7 @@ function Header() {
 
       {showRegisterPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
+          <div ref={registerPopupRef} className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
             <button
               onClick={closePopup}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
