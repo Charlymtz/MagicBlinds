@@ -3,7 +3,7 @@ import React from 'react';
 function Footer() {
   return (
     <footer
-     className="bg-neutral-200 text-center text-neutral-800 dark:bg-neutral-700 dark:text-neutral-400 lg:text-left">
+      className="bg-neutral-200 text-center text-neutral-800 dark:bg-neutral-700 dark:text-neutral-400 lg:text-left">
       <div
         className="flex items-center justify-center border-b-2 border-neutral-300 p-6 dark:border-neutral-600 lg:justify-between">
         <div className="mr-12 hidden lg:block">
