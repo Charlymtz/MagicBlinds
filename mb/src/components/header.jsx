@@ -1,10 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
+import { auth, db } from '../firebase';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 
 function Header() {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
-  const loginPopupRef = useRef(null);
-  const registerPopupRef = useRef(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleLoginClick = () => {
     setShowLoginPopup(true);
@@ -19,25 +23,35 @@ function Header() {
     setShowRegisterPopup(false);
   };
 
-  const handleClickOutside = (event) => {
-    if (loginPopupRef.current && !loginPopupRef.current.contains(event.target)) {
-      setShowLoginPopup(false);
-    }
-    if (registerPopupRef.current && !registerPopupRef.current.contains(event.target)) {
-      setShowRegisterPopup(false);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert('Login successful');
+      closePopup();
+    } catch (error) {
+      alert(error.message);
     }
   };
 
-  useEffect(() => {
-    if (showLoginPopup || showRegisterPopup) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
     }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [showLoginPopup, showRegisterPopup]);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        email: email,
+        uid: userCredential.user.uid
+      });
+      alert('Registration successful');
+      closePopup();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <>
@@ -71,9 +85,9 @@ function Header() {
                   </link>
                 </li>
                 <li>
-                  <link className="hover:text-gray-300 transition pr-10" href="#">
+                  <a className="hover:text-gray-300 transition pr-10" href="#">
                     Services
-                  </link>
+                  </a>
                 </li>
               </ul>
             </nav>
@@ -118,9 +132,20 @@ function Header() {
         </div>
       </header>
 
+      <div className="relative">
+        <img
+          src="/images/your-banner-image.jpg"
+          alt="Banner"
+          className="w-full h-64 object-cover"
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h1 className="text-4xl text-white font-bold">Welcome to Our Website</h1>
+        </div>
+      </div>
+
       {showLoginPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div ref={loginPopupRef} className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
+          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
             <button
               onClick={closePopup}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
@@ -128,16 +153,29 @@ function Header() {
               X
             </button>
             <h2 className="text-2xl mb-4">Login</h2>
-            <form>
+            <form onSubmit={handleLogin}>
               <label className="block mb-2">
                 Email:
-                <input type="email" className="border p-2 w-full" />
+                <input
+                  type="email"
+                  className="border p-2 w-full"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </label>
               <label className="block mb-4">
                 Password:
-                <input type="password" className="border p-2 w-full" />
+                <input
+                  type="password"
+                  className="border p-2 w-full"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </label>
-              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+              >
                 Submit
               </button>
             </form>
@@ -147,7 +185,7 @@ function Header() {
 
       {showRegisterPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div ref={registerPopupRef} className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
+          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
             <button
               onClick={closePopup}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
@@ -155,20 +193,38 @@ function Header() {
               X
             </button>
             <h2 className="text-2xl mb-4">Register</h2>
-            <form>
+            <form onSubmit={handleRegister}>
               <label className="block mb-2">
                 Email:
-                <input type="email" className="border p-2 w-full" />
+                <input
+                  type="email"
+                  className="border p-2 w-full"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </label>
               <label className="block mb-2">
                 Password:
-                <input type="password" className="border p-2 w-full" />
+                <input
+                  type="password"
+                  className="border p-2 w-full"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </label>
               <label className="block mb-4">
                 Confirm Password:
-                <input type="password" className="border p-2 w-full" />
+                <input
+                  type="password"
+                  className="border p-2 w-full"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
               </label>
-              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+              >
                 Submit
               </button>
             </form>

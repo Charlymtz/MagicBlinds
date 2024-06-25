@@ -6,6 +6,7 @@ import Marker  from './components/Marke';
 import Testimonials from './components/Testimonials';
 import Brid from './components/Brid';
 import PopPup from './components/PopPup';
+import Team from './components/Team';
 
 
 function App() {
@@ -13,15 +14,17 @@ function App() {
     <div>
       <Header />
       <section/>
-      <Marker/>
-      <section/>
       <Brid/>
+      <section/>
+      <Marker/>
       <section/>
       <Productos/>
       <section/>
       <Testimonials/>
       <section/>
       <PopPup/>
+      <section/>
+      <Team/>
       <section/>
       <Footer/>
     </div>
