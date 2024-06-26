@@ -87,7 +87,7 @@ function Header() {
                   </a>
                 </li>
                 <li>
-                  <a className="hover:text-gray-300 transition" href="#">
+                  <a className="hover:text-gray-300 transition pr-10" href="#">
                     Services
                   </a>
                 </li>
