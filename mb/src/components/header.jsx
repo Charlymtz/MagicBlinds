@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import { auth, db } from './firebase'; 
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+import React, { useState, useRef, useEffect } from 'react';
 
 function Header() {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const loginPopupRef = useRef(null);
+  const registerPopupRef = useRef(null);
 
   const handleLoginClick = () => {
     setShowLoginPopup(true);
@@ -23,37 +19,25 @@ function Header() {
     setShowRegisterPopup(false);
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert('Login successful');
-      closePopup();
-    } catch (error) {
-      console.error('Error logging in:', error);
-      alert(error.message);
+  const handleClickOutside = (event) => {
+    if (loginPopupRef.current && !loginPopupRef.current.contains(event.target)) {
+      setShowLoginPopup(false);
+    }
+    if (registerPopupRef.current && !registerPopupRef.current.contains(event.target)) {
+      setShowRegisterPopup(false);
     }
   };
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
+  useEffect(() => {
+    if (showLoginPopup || showRegisterPopup) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
     }
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await setDoc(doc(db, "users", userCredential.user.uid), {
-        email: userCredential.user.email,
-        uid: userCredential.user.uid,
-      });
-      alert('Registration successful');
-      closePopup();
-    } catch (error) {
-      console.error('Error registering:', error);
-      alert(error.message);
-    }
-  };
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showLoginPopup, showRegisterPopup]);
 
   return (
     <>
@@ -87,7 +71,7 @@ function Header() {
                   </a>
                 </li>
                 <li>
-                  <a className="hover:text-gray-300 transition" href="#">
+                  <a className="hover:text-gray-300 transition pr-10" href="#">
                     Services
                   </a>
                 </li>
@@ -136,7 +120,7 @@ function Header() {
 
       {showLoginPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
+          <div ref={loginPopupRef} className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
             <button
               onClick={closePopup}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
@@ -144,32 +128,17 @@ function Header() {
               X
             </button>
             <h2 className="text-2xl mb-4">Login</h2>
-            <form onSubmit={handleLogin}>
+            <form>
               <label className="block mb-2">
                 Email:
-                <input
-                  type="email"
-                  className="border p-2 w-full"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+                <input type="email" className="border p-2 w-full" />
               </label>
               <label className="block mb-4">
                 Password:
-                <input
-                  type="password"
-                  className="border p-2 w-full"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <input type="password" className="border p-2 w-full" />
               </label>
-              <button
-                type="submit"
-                className="bg-teal-500 text-white px-4 py-2 rounded"
-              >
-                Login
+              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                Submit
               </button>
             </form>
           </div>
@@ -178,7 +147,7 @@ function Header() {
 
       {showRegisterPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
+          <div ref={registerPopupRef} className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
             <button
               onClick={closePopup}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
@@ -186,42 +155,21 @@ function Header() {
               X
             </button>
             <h2 className="text-2xl mb-4">Register</h2>
-            <form onSubmit={handleRegister}>
+            <form>
               <label className="block mb-2">
                 Email:
-                <input
-                  type="email"
-                  className="border p-2 w-full"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+                <input type="email" className="border p-2 w-full" />
               </label>
               <label className="block mb-2">
                 Password:
-                <input
-                  type="password"
-                  className="border p-2 w-full"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <input type="password" className="border p-2 w-full" />
               </label>
               <label className="block mb-4">
                 Confirm Password:
-                <input
-                  type="password"
-                  className="border p-2 w-full"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
+                <input type="password" className="border p-2 w-full" />
               </label>
-              <button
-                type="submit"
-                className="bg-teal-500 text-white px-4 py-2 rounded"
-              >
-                Register
+              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                Submit
               </button>
             </form>
           </div>
