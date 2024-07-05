@@ -41,7 +41,7 @@ function Header() {
 
   return (
     <>
-      <header className="bg-blue-900 text-white">
+      <header className="bg-neutral-900 text-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
           <a className="block text-white" href="#">
             <span className="sr-only">Home</span>
@@ -80,14 +80,14 @@ function Header() {
             <div className="flex items-center gap-5">
               <div className="hidden sm:flex sm:gap-5">
                 <a
-                  className="block rounded-lg border border-transparent bg-gradient-to-r from-teal-500 to-cyan-500 px-6 py-2 text-base font-semibold text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gradient-to-r hover:from-teal-600 hover:to-cyan-600"
+                  className="block rounded-lg border border-transparent bg-gradient-to-r from-neutral-500 to-neutral-500 px-6 py-2 text-base font-semibold text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gradient-to-r hover:from-neutral-600 hover:to-neutral-600"
                   href="#"
                   onClick={handleLoginClick}
                 >
                   Login
                 </a>
                 <a
-                  className="block rounded-lg border border-teal-500 bg-white px-6 py-2 text-base font-semibold text-teal-600 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gray-100"
+                  className="block rounded-lg border border-transparent bg-gradient-to-r from-neutral-500 to-neutral-500 px-6 py-2 text-base font-semibold text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gradient-to-r hover:from-neutral-600 hover:to-neutral-600"
                   href="#"
                   onClick={handleRegisterClick}
                 >

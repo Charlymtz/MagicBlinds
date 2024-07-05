@@ -3,11 +3,11 @@ import React from 'react';
 function Footer() {
   return (
     <footer
-      className="bg-neutral-200 text-center text-neutral-800 dark:bg-neutral-700 dark:text-neutral-400 lg:text-left">
+      className="bg-neutral-900 text-center text-neutral-800 dark:bg-neutral-250 dark:text-neutral-400 lg:text-left">
       <div
         className="flex items-center justify-center border-b-2 border-neutral-300 p-6 dark:border-neutral-600 lg:justify-between">
         <div className="mr-12 hidden lg:block">
-          <span>Conéctate con nosotros en las redes sociales:</span>
+          <span>Connect with us on social media:</span>
         </div>
         <div className="flex justify-center">
           <a className="mr-6 text-neutral-600 dark:text-neutral-200">
@@ -191,7 +191,7 @@ function Footer() {
       </div>
 
       {/* <!--Copyright section--> */}
-      <div className="bg-neutral-200 p-6 text-center dark:bg-neutral-700">
+      <div className="bg-neutral-900 p-6 text-center dark:bg-bg-neutral-900">
         <span>© 2024 Copyright </span>
         <a
           className="font-semibold text-neutral-600 dark:text-neutral-400"
