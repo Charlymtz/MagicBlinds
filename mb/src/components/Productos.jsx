@@ -7,8 +7,7 @@ function Productos(){
               <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">Product Collection</h2>
 
               <p className="mt-4 max-w-md text-gray-500">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque praesentium cumque iure
-                dicta incidunt est ipsam, officia dolor fugit natus?
+              We have a wide variety of products customized for the comfort of the environment.
               </p>
             </header>
 
@@ -38,10 +37,15 @@ function Productos(){
 
                   <select id="SortBy" className="mt-1 rounded border-gray-300 text-sm">
                     <option>Sort By</option>
-                    <option value="Title, DESC">Title, DESC</option>
-                    <option value="Title, ASC">Title, ASC</option>
-                    <option value="Price, DESC">Price, DESC</option>
-                    <option value="Price, ASC">Price, ASC</option>
+                    <option value="Name, DESC">Nombre, DESC</option>
+                    <option value="Name, DESC">Name, DESC</option>
+                      <option value="Name, ASC">Name, ASC</option>
+                      <option value="Price, DESC">Price, DESC</option>
+                      <option value="Price, ASC">Price, ASC</option>
+                      <option value="Popularity, DESC">Popularity, DESC</option>
+                      <option value="Popularity, ASC">Popularity, ASC</option>
+                      <option value="Date, DESC">Release Date, DESC</option>
+                      <option value="Date, ASC">Release Date, ASC</option>
                   </select>
                 </div>
 
@@ -255,7 +259,7 @@ function Productos(){
                                 className="size-5 rounded border-gray-300"
                               />
 
-                              <span className="text-sm font-medium text-gray-700"> Green </span>
+                              <span className="text-sm font-medium text-gray-700"> White </span>
                             </label>
                           </li>
 
@@ -267,7 +271,7 @@ function Productos(){
                                 className="size-5 rounded border-gray-300"
                               />
 
-                              <span className="text-sm font-medium text-gray-700"> Orange </span>
+                              <span className="text-sm font-medium text-gray-700"> Brown </span>
                             </label>
                           </li>
 
@@ -315,14 +319,8 @@ function Productos(){
                         <h3
                           className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
                         >
-                          Basic Tee
+                          {/* Descripcion del producto que sea breve */}
                         </h3>
-
-                        <p className="mt-2">
-                          <span className="sr-only"> Regular Price </span>
-
-                          <span className="tracking-wider text-gray-900"> £24.00 GBP </span>
-                        </p>
                       </div>
                     </a>
                   </li>
@@ -339,14 +337,8 @@ function Productos(){
                         <h3
                           className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
                         >
-                          Basic Tee
+                           {/* Descripcion del producto que sea breve */}
                         </h3>
-
-                        <p className="mt-2">
-                          <span className="sr-only"> Regular Price </span>
-
-                          <span className="tracking-wider text-gray-900"> £24.00 GBP </span>
-                        </p>
                       </div>
                     </a>
                   </li>
@@ -363,14 +355,8 @@ function Productos(){
                         <h3
                           className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
                         >
-                          Basic Tee
+                           {/* Descripcion del producto que sea breve */}
                         </h3>
-
-                        <p className="mt-2">
-                          <span className="sr-only"> Regular Price </span>
-
-                          <span className="tracking-wider text-gray-900"> £24.00 GBP </span>
-                        </p>
                       </div>
                     </a>
                   </li>
