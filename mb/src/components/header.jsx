@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import { auth, db } from './firebase'; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
@@ -9,6 +9,7 @@ function Header() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const popupRef = useRef(null);
 
   const handleLoginClick = () => {
     setShowLoginPopup(true);
@@ -26,7 +27,7 @@ function Header() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       alert('Login successful');
       closePopup();
     } catch (error) {
@@ -54,6 +55,20 @@ function Header() {
       alert(error.message);
     }
   };
+
+  const handleOutsideClick = (e) => {
+    if (popupRef.current && !popupRef.current.contains(e.target)) {
+      closePopup();
+    }
+  };
+
+  // Agregar un event listener para cerrar el popup al hacer clic fuera de él
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
 
   return (
     <>
@@ -95,20 +110,18 @@ function Header() {
             </nav>
             <div className="flex items-center gap-5">
               <div className="hidden sm:flex sm:gap-5">
-                <a
+                <button
                   className="block rounded-lg border border-transparent bg-gradient-to-r from-neutral-500 to-neutral-500 px-6 py-2 text-base font-semibold text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gradient-to-r hover:from-neutral-600 hover:to-neutral-600"
-                  href="#"
                   onClick={handleLoginClick}
                 >
                   Login
-                </a>
-                <a
+                </button>
+                <button
                   className="block rounded-lg border border-transparent bg-gradient-to-r from-neutral-500 to-neutral-500 px-6 py-2 text-base font-semibold text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gradient-to-r hover:from-neutral-600 hover:to-neutral-600"
-                  href="#"
                   onClick={handleRegisterClick}
                 >
                   Register
-                </a>
+                </button>
               </div>
               <button
                 className="block md:hidden rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-700"
@@ -135,8 +148,8 @@ function Header() {
       </header>
 
       {showLoginPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" onClick={handleOutsideClick}>
+          <div ref={popupRef} className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
             <button
               onClick={closePopup}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
@@ -177,8 +190,8 @@ function Header() {
       )}
 
       {showRegisterPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" onClick={handleOutsideClick}>
+          <div ref={popupRef} className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto relative">
             <button
               onClick={closePopup}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
