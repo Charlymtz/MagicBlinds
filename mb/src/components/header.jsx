@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Logo from '../assets/Logo.png';
 
 function Header() {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
@@ -46,7 +47,7 @@ function Header() {
           <a className="block text-white" href="#">
             <span className="sr-only">Home</span>
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              img src={Logo} alt="Logo"
               width="32"
               height="32"
               fill="currentColor"
