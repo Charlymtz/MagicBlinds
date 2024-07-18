@@ -46,17 +46,8 @@ function Header() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
           <a className="block text-white" href="#">
             <span className="sr-only">Home</span>
-            <svg
-              img src={Logo} alt="Logo"
-              width="32"
-              height="32"
-              fill="currentColor"
-              className="bi bi-dice-6"
-              viewBox="0 0 16 16"
-            >
-              <path d="M13 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zM3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3z" />
-              <path d="M5.5 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m8 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m-8 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-            </svg>
+              <img src={Logo} alt="Logo" width="75" height="75" className="bi bi-dice-6" />
+              {/* EL logo sera blanco si es que ell joak lo manda!!! */}
           </a>
           <div className="flex flex-1 items-center justify-end">
             <nav aria-label="Global" className="hidden md:block">
