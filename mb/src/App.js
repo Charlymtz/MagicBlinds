@@ -7,13 +7,15 @@ import Marker  from './components/Marke';
 import Brid from './components/Brid';
 import PopPup from './components/PopPup';
 import Team from './components/Team';
-
+import Dash from './components/Dash';
 
 
 function App() {
   return (
     <div>
       <Header />
+      <Dash />
+      <section/>
       <section/>
       <Brid/>
       <section/>
