@@ -45,7 +45,7 @@ function Header() {
       <header className="bg-neutral-900 text-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
           <a className="block text-white" href="#">
-            <span className="sr-only">Home</span>
+            <span className="sr-only"></span>
               <img src={Logo} alt="Logo" width="75" height="75" className="bi bi-dice-6" />
               {/* EL logo sera blanco si es que ell joak lo manda!!! */}
           </a>

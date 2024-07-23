@@ -1,3 +1,8 @@
+import React from "react";
+import foto7 from '../assets/foto7.jpg';
+import foto6 from '../assets/foto6.jpg';
+import foto4 from '../assets/foto4.jpg';
+
 function Productos(){
     return(
         <div>
@@ -309,11 +314,7 @@ function Productos(){
                 <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   <li>
                     <a href="#" className="group block overflow-hidden">
-                      <img
-                        src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                        alt=""
-                        className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                      />
+                    <img src={foto7} alt="Logo" width="700" height="1000" />
 
                       <div className="relative bg-white pt-3">
                         <h3
@@ -327,11 +328,8 @@ function Productos(){
 
                   <li>
                     <a href="#" className="group block overflow-hidden">
-                      <img
-                        src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                        alt=""
-                        className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                      />
+                      {/* imagen del producto */}
+                    <img src={foto6} alt="Logo" width="700" height="1000" />
 
                       <div className="relative bg-white pt-3">
                         <h3
@@ -345,11 +343,7 @@ function Productos(){
 
                   <li>
                     <a href="#" className="group block overflow-hidden">
-                      <img
-                        src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                        alt=""
-                        className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                      />
+                    <img src={foto4} alt="Logo" width="700" height="1000" />
 
                       <div className="relative bg-white pt-3">
                         <h3

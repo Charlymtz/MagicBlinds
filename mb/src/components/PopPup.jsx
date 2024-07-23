@@ -1,14 +1,12 @@
 import React from 'react';
+import foto3 from '../assets/foto3.webp';
+
 
 function PopPup() {
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <section className="w-120 overflow-hidden rounded-lg shadow-2xl md:flex bg-white">
-                <img
-                    alt="Discount offer"
-                    src="https://i0.wp.com/persianaselectricasmexico.com/wp-content/uploads/2023/02/powerise.jpg"
-                    className="h-64 w-full object-cover md:h-auto md:w-64"
-                />
+                <img src={foto3} alt="Logo" width="400" height="250" />
 
                 <div className="p-8 text-center md:flex md:flex-col md:justify-center">
                     <p className="text-sm font-semibold uppercase tracking-widest text-neutral-600">Run with the pack</p>
