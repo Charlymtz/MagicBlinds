@@ -1,7 +1,8 @@
-import React, { useState, useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { auth, db } from './firebase'; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
+import { useHistory } from 'react-router-dom'; // Importa useHistory
 
 function Header() {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
@@ -10,6 +11,7 @@ function Header() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const popupRef = useRef(null);
+  const history = useHistory(); // Usa el hook useHistory
 
   const handleLoginClick = () => {
     setShowLoginPopup(true);
@@ -30,6 +32,7 @@ function Header() {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       alert('Login successful');
       closePopup();
+      history.push('/dash'); // Redirige al componente Dash
     } catch (error) {
       console.error('Error logging in:', error);
       alert(error.message);
@@ -50,6 +53,7 @@ function Header() {
       });
       alert('Registration successful');
       closePopup();
+      history.push('/dash'); // Redirige al componente Dash
     } catch (error) {
       console.error('Error registering:', error);
       alert(error.message);
@@ -62,7 +66,6 @@ function Header() {
     }
   };
 
-  // Agregar un event listener para cerrar el popup al hacer clic fuera de él
   useEffect(() => {
     document.addEventListener('mousedown', handleOutsideClick);
     return () => {
