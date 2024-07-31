@@ -1,11 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/Logo.png';
 
 function Header() {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const loginPopupRef = useRef(null);
   const registerPopupRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleLoginClick = () => {
     setShowLoginPopup(true);
@@ -40,14 +44,36 @@ function Header() {
     };
   }, [showLoginPopup, showRegisterPopup]);
 
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://your-backend-api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        // Redirigir al dashboard si el inicio de sesión es exitoso
+        navigate('/Dash');
+      } else {
+        // Manejar error de inicio de sesión
+        console.error(result.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
     <>
       <header className="bg-neutral-900 text-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
           <a className="block text-white" href="#">
             <span className="sr-only"></span>
-              <img src={Logo} alt="Logo" width="75" height="75" className="bi bi-dice-6" />
-              {/* EL logo sera blanco si es que ell joak lo manda!!! */}
+            <img src={Logo} alt="Logo" width="75" height="75" className="bi bi-dice-6" />
           </a>
           <div className="flex flex-1 items-center justify-end">
             <nav aria-label="Global" className="hidden md:block">
@@ -73,7 +99,7 @@ function Header() {
               <div className="hidden sm:flex sm:gap-5">
                 <a
                   className="block rounded-lg border border-transparent bg-gradient-to-r from-neutral-500 to-neutral-500 px-6 py-2 text-base font-semibold text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gradient-to-r hover:from-neutral-600 hover:to-neutral-600"
-                  href="#"
+                  href=""
                   onClick={handleLoginClick}
                 >
                   Login
@@ -120,14 +146,14 @@ function Header() {
               X
             </button>
             <h2 className="text-2xl mb-4">Login</h2>
-            <form>
+            <form onSubmit={handleLoginSubmit}>
               <label className="block mb-2">
                 Email:
-                <input type="email" className="border p-2 w-full" />
+                <input type="email" className="border p-2 w-full" value={email} onChange={(e) => setEmail(e.target.value)} />
               </label>
               <label className="block mb-4">
                 Password:
-                <input type="password" className="border p-2 w-full" />
+                <input type="password" className="border p-2 w-full" value={password} onChange={(e) => setPassword(e.target.value)} />
               </label>
               <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
                 Submit
