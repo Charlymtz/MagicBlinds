@@ -1,9 +1,10 @@
-import React, { useState, useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { auth, db } from './firebase'; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 
 function Header() {
+  // Definición de estados para controlar la visibilidad de los popups y los valores de los inputs
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
   const [email, setEmail] = useState("");
@@ -11,35 +12,40 @@ function Header() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const popupRef = useRef(null);
 
+  // Evento que se dispara al hacer clic en el botón de Login
   const handleLoginClick = () => {
-    setShowLoginPopup(true);
+    setShowLoginPopup(true); // Muestra el popup de login
   };
 
+  // Evento que se dispara al hacer clic en el botón de Register
   const handleRegisterClick = () => {
-    setShowRegisterPopup(true);
+    setShowRegisterPopup(true); // Muestra el popup de registro
   };
 
+  // Evento que cierra los popups
   const closePopup = () => {
-    setShowLoginPopup(false);
-    setShowRegisterPopup(false);
+    setShowLoginPopup(false); // Oculta el popup de login
+    setShowRegisterPopup(false); // Oculta el popup de registro
   };
 
+  // Evento que se dispara al enviar el formulario de login
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Previene el comportamiento por defecto del formulario (recargar la página)
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      alert('Login successful');
-      closePopup();
+      alert('Login successful'); // Muestra una alerta de éxito
+      closePopup(); // Cierra el popup
     } catch (error) {
       console.error('Error logging in:', error);
-      alert(error.message);
+      alert(error.message); // Muestra una alerta con el mensaje de error
     }
   };
 
+  // Evento que se dispara al enviar el formulario de registro
   const handleRegister = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Previene el comportamiento por defecto del formulario
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      alert("Passwords do not match"); // Muestra una alerta si las contraseñas no coinciden
       return;
     }
     try {
@@ -48,25 +54,26 @@ function Header() {
         email: userCredential.user.email,
         uid: userCredential.user.uid,
       });
-      alert('Registration successful');
-      closePopup();
+      alert('Registration successful'); // Muestra una alerta de éxito
+      closePopup(); // Cierra el popup
     } catch (error) {
       console.error('Error registering:', error);
-      alert(error.message);
+      alert(error.message); // Muestra una alerta con el mensaje de error
     }
   };
 
+  // Evento que se dispara al hacer clic fuera del popup para cerrarlo
   const handleOutsideClick = (e) => {
     if (popupRef.current && !popupRef.current.contains(e.target)) {
-      closePopup();
+      closePopup(); // Cierra el popup si el clic no fue dentro del popup
     }
   };
 
-  // Agregar un event listener para cerrar el popup al hacer clic fuera de él
+  // useEffect para añadir y remover el event listener al montar y desmontar el componente
   useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick); // Añade el event listener al montar
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick); // Remueve el event listener al desmontar
     };
   }, []);
 
@@ -112,13 +119,13 @@ function Header() {
               <div className="hidden sm:flex sm:gap-5">
                 <button
                   className="block rounded-lg border border-transparent bg-gradient-to-r from-neutral-500 to-neutral-500 px-6 py-2 text-base font-semibold text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gradient-to-r hover:from-neutral-600 hover:to-neutral-600"
-                  onClick={handleLoginClick}
+                  onClick={handleLoginClick} // Evento para mostrar el popup de login
                 >
                   Login
                 </button>
                 <button
                   className="block rounded-lg border border-transparent bg-gradient-to-r from-neutral-500 to-neutral-500 px-6 py-2 text-base font-semibold text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gradient-to-r hover:from-neutral-600 hover:to-neutral-600"
-                  onClick={handleRegisterClick}
+                  onClick={handleRegisterClick} // Evento para mostrar el popup de registro
                 >
                   Register
                 </button>
@@ -164,7 +171,7 @@ function Header() {
                   type="email"
                   className="border p-2 w-full"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)} // Evento para actualizar el estado del email
                   required
                 />
               </label>
@@ -174,7 +181,7 @@ function Header() {
                   type="password"
                   className="border p-2 w-full"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)} // Evento para actualizar el estado de la contraseña
                   required
                 />
               </label>
@@ -206,7 +213,7 @@ function Header() {
                   type="email"
                   className="border p-2 w-full"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)} // Evento para actualizar el estado del email
                   required
                 />
               </label>
@@ -216,7 +223,7 @@ function Header() {
                   type="password"
                   className="border p-2 w-full"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)} // Evento para actualizar el estado de la contraseña
                   required
                 />
               </label>
@@ -226,7 +233,7 @@ function Header() {
                   type="password"
                   className="border p-2 w-full"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={(e) => setConfirmPassword(e.target.value)} // Evento para actualizar el estado de la confirmación de contraseña
                   required
                 />
               </label>
