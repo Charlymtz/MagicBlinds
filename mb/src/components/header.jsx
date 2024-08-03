@@ -80,17 +80,17 @@ function Header() {
               <ul className="flex items-center gap-6 text-md">
                 <li>
                   <a className="hover:text-gray-300 transition" href="#">
-                    About
+                    Sobre nosotros
                   </a>
                 </li>
                 <li>
                   <a className="hover:text-gray-300 transition" href="#">
-                    Products
+                    Productos
                   </a>
                 </li>
                 <li>
                   <a className="hover:text-gray-300 transition pr-10" href="#">
-                    Services
+                    Servicios
                   </a>
                 </li>
               </ul>
