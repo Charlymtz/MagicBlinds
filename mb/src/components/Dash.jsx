@@ -98,7 +98,7 @@ const Dash = () => {
     ],
     xaxis: {
       type: 'datetime',
-      range: 2700000,
+      range: 45,
     },
   });
 
